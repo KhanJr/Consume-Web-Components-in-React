@@ -1,17 +1,44 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+/* eslint-disable react/no-typos */
+import React from "react";
+import ReactDOM from "react-dom";
+import reactToWebComponent from "react-to-webcomponent";
+import PropTypes from "prop-types";
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+class MyCounter extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      count: 0,
+    };
+  }
+  inc() {
+    this.setState((prev) => ({
+      count: prev + 1,
+    }));
+  }
+  dec() {
+    this.setState((prev) => ({
+      count: prev - 1,
+    }));
+  }
+  render() {
+    return (
+      <div>
+        <h1>Counter {this.props.name} </h1>
+        <button onClick={() => this.inc()}>Up</button>
+        <button onClick={() => this.dec()}>Down</button>
+        <span>{this.state.count}</span>
+      </div>
+    );
+  }
+}
+
+MyCounter.PropTypes = {
+  name: PropTypes.string,
+};
+
+customElements.define(
+  "my-counter",
+  reactToWebComponent(MyCounter, React, ReactDOM)
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// ReactDOM.render(<MyCounter />, document.getElementById("root"));
