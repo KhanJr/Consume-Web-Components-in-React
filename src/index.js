@@ -1,4 +1,5 @@
 /* eslint-disable react/no-typos */
+// This file is a web-component.
 import React from "react";
 import ReactDOM from "react-dom";
 import reactToWebComponent from "react-to-webcomponent";
